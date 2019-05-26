@@ -26,5 +26,12 @@ namespace WebChatBot.Controllers
 
             return View();
         }
+
+        public ActionResult getMessage(string men)
+        {
+            System.Threading.Thread.Sleep(3000);
+
+            return Json(new { msgBot = men });
+        }
     }
 }

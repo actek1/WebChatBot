@@ -125,6 +125,31 @@
             messagesContainer.finish().animate({
                 scrollTop: messagesContainer.prop("scrollHeight")
             }, 250);
+
+            sendToBot(newMessage, messagesContainer);
+        }
+
+        function sendToBot(msg, messagesContainer) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("getMessage", "Home")',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ men: msg }),
+                dataType: "json",
+                async: true,
+                success: function (data)
+                    {
+                        //alert('Success: ' + data.msgBot);
+                        messagesContainer.append([
+                            '<li class="other">',
+                                data.msgBot,
+                            '</li>'
+                        ].join(''));
+                    },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('Error - ' + errorThrown);
+                    }
+            });
         }
 
         function onMetaAndEnter(event) {
